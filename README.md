@@ -3,6 +3,11 @@ Dockerized MyDumper/MyLoader Image, based on Alpine Linux and run without root u
 This image is the lightweight that you can find for this service.
 
 # What is mydumper? Why?
+mydumper is a tool used for backing up MySQL database servers much
+faster than the mysqldump tool distributed with MySQL. It also has the
+capability to retrieve the binary logs from the remote server at the same time
+as the dump itself.
+
 
 * Parallelism (hence, speed) and performance (avoids expensive character set conversion routines, efficient code overall)
 * Easier to manage output (separate files for tables, dump metadata, etc, easy to view/parse data)
@@ -19,6 +24,6 @@ You can find more documentation [here]( https://manpages.debian.org/testing/mydu
 
 Quick example for loading :
 ```bash
-$ myloader -h host -u username -p password --database db_name --threads 10 --rows 20000 -v 3
+$ myloader -h host -u username -p password --database db_name --threads 10 -q 3000 -v 3
 ```
 Options can be found [here]( http://manpages.ubuntu.com/manpages/bionic/man1/myloader.1.html )
