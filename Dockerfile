@@ -17,13 +17,15 @@ RUN apk --no-cache add \
 RUN cd $BUILD_PATH && cmake -DWITH_SSL=OFF . && make
 RUN cd $BUILD_PATH && mv ./mydumper /usr/bin/. && mv ./myloader /usr/bin/.
 
+
 # Create final stage containing myloader and mydumper without all libraries
 FROM alpine:edge
 
 # Create user non root and give access rights to execute
 RUN addgroup -S maxbube && adduser -S maxbube -G maxbube
 RUN apk --no-cache add mysql-client glib-dev mariadb-dev
-
+RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ \
+	s3cmd
 COPY --chown=maxbube --from=build /usr/bin/mydumper /usr/bin/mydumper
 COPY --chown=maxbube --from=build /usr/bin/myloader /usr/bin/myloader
 
