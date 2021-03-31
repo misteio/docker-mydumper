@@ -23,7 +23,7 @@ FROM alpine:edge
 
 # Create user non root and give access rights to execute
 RUN addgroup -S maxbube && adduser -S maxbube -G maxbube
-RUN apk --no-cache add mysql-client glib-dev mariadb-dev
+RUN apk --no-cache add mysql-client glib-dev mariadb-dev curl
 RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ \
 	s3cmd
 COPY --chown=maxbube --from=build /usr/bin/mydumper /usr/bin/mydumper
